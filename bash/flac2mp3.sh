@@ -4,6 +4,7 @@
 #
 
 usage() {
+    # shellcheck disable=SC2039
     local exitcode=0
     if [ $# != 0 ]; then
         echo "$@"
@@ -30,7 +31,7 @@ eval "set -- $args"
 require="flac lame"
 failed=no
 for program in $require; do
-    if ! type $program 2>/dev/null >/dev/null; then 
+    if ! type "$program" 2>/dev/null >/dev/null; then
 	echo "Error: the program '$program' is not installed or not in PATH"
 	failed=yes
     fi

@@ -68,5 +68,6 @@ def main():
 
     print_content(transpose(read_content(path, ifs)), ofs)
 
+
 if __name__ == '__main__':
     main()

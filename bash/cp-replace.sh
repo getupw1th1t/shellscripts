@@ -13,6 +13,7 @@
 #
 
 usage() {
+    # shellcheck disable=SC2039
     local exitcode=0
     if [ $# != 0 ]; then
         echo "$@"
@@ -97,9 +98,9 @@ test $global = on && s_flags=g || s_flags=
 test $testonly = off && msg= || msg='test: '
 
 for from; do
-    to=$(echo $from | sed -e "s/$pattern/$replacement/$s_flags")
+    to=$(echo "$from" | sed -e "s/$pattern/$replacement/$s_flags")
     if test "$from" != "$to"; then
-        echo $msg "\`$from' -> \`$to'"
-        test $testonly = off && cp $cp_ops -- "$from" "$to"
+        echo "$msg" "\`$from' -> \`$to'"
+        test $testonly = off && cp "$cp_ops" -- "$from" "$to"
     fi
 done

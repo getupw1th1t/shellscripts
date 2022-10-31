@@ -70,12 +70,12 @@ eval "set -- $args"  # save arguments in $@. Use "$@" in for loops, not $@
 test "$dir" || dir=~/bin
 
 mkdir -p "$dir"
-absdir=$(cd "$dir"; pwd)
+absdir=$(cd "$dir" || exit; pwd)
 
-cd $(dirname "$0")
+cd $(dirname "$0") || exit
 
 for script in bash/*.sh perl/*.pl awk/*.awk python/*.py; do
-    echo $script | grep ^_ >/dev/null && continue
+    echo "$script" | grep ^_ >/dev/null && continue
 
     source=$PWD/$script
     target=$absdir/$(basename "$script")
@@ -86,10 +86,10 @@ for script in bash/*.sh perl/*.pl awk/*.awk python/*.py; do
 
     if ! test -f "$target" -o -L "$target"; then
         if test $link = on; then
-            echo link $target to $source
+            echo link "$target" to "$source"
             ln -snf "$source" "$target"
         else
-            echo copy to $target from $source
+            echo copy to "$target" from "$source"
             cp "$source" "$target"
         fi
     fi

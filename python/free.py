@@ -57,5 +57,6 @@ def main():
         description='Display amount of free and used memory in the system')
     parser.parse_args()
 
+
 if __name__ == '__main__':
     main()
